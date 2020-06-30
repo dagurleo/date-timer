@@ -1,2 +1,2 @@
-const Timer = require('./lib/cjs/index').default
+const Timer = require('./lib/index').default
 module.exports = Timer

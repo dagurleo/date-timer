@@ -1,17 +1,19 @@
 {
-  "name": "timer",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "date-timer",
+  "version": "0.0.2",
+  "description": "Simple date-time package",
+  "main": "lib/index.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpileOnly test.ts -p tsconfig.json",
-    "tsc": "tsc -p tsconfig.prod.json && tsc -p tsconfig-cjs.json",
+    "tsc": "rm -rf lib && tsc -p tsconfig.prod.json && tsc -p tsconfig-cjs.json",
     "test": "jest",
     "coverage": "jest --coverage",
-    "test-watch": "jest --watchAll"
+    "test-watch": "jest --watchAll",
+    "prepublish": "npm run tsc"
   },
   "keywords": [],
-  "author": "",
+  "repository": "https://github.com/dagurleo/date-timer",
+  "author": "Dagur Leó Bergsson",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^26.0.3",

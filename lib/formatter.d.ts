@@ -1,6 +1,6 @@
 declare class Formatter {
     private date;
-    private format;
+    private formatString;
     private year;
     private month;
     private day;
@@ -11,9 +11,11 @@ declare class Formatter {
     private days;
     private months;
     constructor(date: Date | string, format: string);
-    execute(): string;
-    private getFormatForPiece;
-    private prependZero;
-    private prependZeroMilli;
+    format(formatString?: string): string;
+    static format(date: Date, formatString: string): string;
+    static getFormatForPiece(formatter: Formatter, piece: string): string;
+    static getOrdinal(num: number): string;
+    static prependZero(num: number): string;
+    static prependZeroMilli(num: number): string;
 }
 export default Formatter;

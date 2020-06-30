@@ -1,4 +1,4 @@
-import Timer, { EAddType } from '../src/index'
+import Timer, { EAddType } from '../src/timer'
 const defaultTimerOptions = {
   years: 2020,
   months: 5,

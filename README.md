@@ -1,6 +1,8 @@
 # Date Timer
 
 [![](https://data.jsdelivr.com/v1/package/npm/date-timer/badge)](https://www.jsdelivr.com/package/npm/date-timer)
+[![](https://img.shields.io/npm/dm/date-timer?style=flat-square)](https://www.npmjs.com/package/date-timer)
+[![](https://img.shields.io/npm/l/date-timer?style=flat-square)](https://choosealicense.com/licenses/mit/)
 
 Date Timer is a simple date timer library written in Typescript.
 

@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./lib/browser",
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "lib": ["es2016", "dom", "es5"]
+  },
+  "include": ["./src"],
+  "exclude": ["./test.ts"]
+}

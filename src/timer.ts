@@ -93,11 +93,10 @@ class Timer {
     months = ensureNumber(months)
     if (months) {
       const result = new Date(this.result.toISOString())
-      const desiredMonth = this.result.getMonth() + months
-      result.setFullYear(this.result.getFullYear(), desiredMonth, 1)
+      const desiredMonth = this.result.getUTCMonth() + months
+      result.setUTCFullYear(this.result.getUTCFullYear(), desiredMonth, 1)
       const daysInMonth = getDaysInMonth(result)
-
-      this.result.setMonth(
+      this.result.setUTCMonth(
         desiredMonth,
         Math.min(daysInMonth, this.result.getUTCDate())
       )
@@ -181,9 +180,7 @@ class Timer {
     }
   }
   public subYears(years: number): Timer {
-    if (years) {
-      return this.addYears(-years)
-    }
+    return this.addYears(-years)
   }
 
   public subMonths(months: number): Timer {
@@ -394,11 +391,13 @@ const ensureNumber = (value: any) => {
   return value
 }
 const getDaysInMonth = (date: Date) => {
-  var year = date.getFullYear()
-  var monthIndex = date.getMonth()
+  var year = date.getUTCFullYear()
+  var monthIndex = date.getUTCMonth()
+
   var lastDayOfMonth = new Date(0)
-  lastDayOfMonth.setFullYear(year, monthIndex + 1, 0)
-  lastDayOfMonth.setHours(0, 0, 0, 0)
+  lastDayOfMonth.setUTCFullYear(year, monthIndex, 0)
+  lastDayOfMonth.setUTCHours(0, 0, 0, 0)
+
   return lastDayOfMonth.getUTCDate()
 }
 interface ITimerOptions {

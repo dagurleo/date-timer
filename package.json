@@ -5,7 +5,7 @@
   "main": "lib/index.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpileOnly test.ts -p tsconfig.json",
-    "tsc": "rm -rf lib && tsc -p tsconfig.prod.json && tsc -p tsconfig-cjs.json",
+    "tsc": "rm -rf lib && tsc -p tsconfig.prod.json && tsc -p tsconfig-browser.json",
     "test": "jest",
     "coverage": "jest --coverage",
     "test-watch": "jest --watchAll",
@@ -14,7 +14,7 @@
   "keywords": [],
   "repository": "https://github.com/dagurleo/date-timer",
   "author": "Dagur Leó Bergsson",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^26.0.3",
     "@types/node": "^14.0.14",

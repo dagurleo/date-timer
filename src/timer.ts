@@ -1,7 +1,5 @@
 import Formatter from './formatter'
 class Timer {
-  private secondMS = 1000
-  private minuteMS = this.secondMS * 60
   private result: Date
   constructor(options?: ITimerOptions | number | string | Date) {
     if (options) {

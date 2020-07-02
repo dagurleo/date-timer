@@ -1,11 +1,12 @@
 {
   "name": "date-timer",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Simple date-time package",
   "main": "lib/index.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpileOnly test.ts -p tsconfig.json",
     "tsc": "rm -rf lib && tsc -p tsconfig.prod.json && tsc -p tsconfig-browser.json",
+    "tsc-browser": "rm -rf lib/browser && tsc -p tsconfig-browser.json",
     "test": "jest",
     "coverage": "jest --coverage",
     "test-watch": "jest --watchAll",
@@ -27,5 +28,5 @@
     "tslint-plugin-prettier": "^2.3.0",
     "typescript": "^3.9.5"
   },
-  "types": "./lib/index.d.ts"
+  "types": "./lib/timer.d.ts"
 }

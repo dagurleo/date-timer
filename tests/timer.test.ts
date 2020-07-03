@@ -1,4 +1,4 @@
-import Timer, { EAddType } from '../src/timer'
+import Timer from '../src/DateTimer'
 const defaultTimerOptions = {
   years: 2020,
   months: 5,
@@ -77,18 +77,6 @@ describe('Test add functions', () => {
     timer.addSeconds(addSeconds)
     expect(timer.getUTCSeconds()).toEqual(date.getUTCSeconds())
     expect(timer.getUTCMinutes()).toEqual(date.getUTCMinutes())
-  })
-})
-describe('Test enums', () => {
-  it('Tests enums have not changed', () => {
-    expect(EAddType.years).toEqual('years')
-    expect(EAddType.months).toEqual('months')
-    expect(EAddType.weeks).toEqual('weeks')
-    expect(EAddType.days).toEqual('days')
-    expect(EAddType.hours).toEqual('hours')
-    expect(EAddType.minutes).toEqual('minutes')
-    expect(EAddType.seconds).toEqual('seconds')
-    expect(EAddType.milliseconds).toEqual('milliseconds')
   })
 })
 

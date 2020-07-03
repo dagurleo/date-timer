@@ -408,7 +408,7 @@ interface ITimerOptions {
   milliseconds?: number
 }
 
-export enum EAddType {
+enum EAddType {
   years = 'years',
   months = 'months',
   weeks = 'weeks',

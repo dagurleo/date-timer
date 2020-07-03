@@ -10,6 +10,7 @@ enum EDateStringPiece {
   halfMonth = 'M',
   halfDay = 'D',
   halfHour = 'hh',
+  halfHourHalf = 'h',
   halfMinute = 'm',
   halfSecond = 's',
   halfWordMonth = 'MMM',
@@ -31,20 +32,32 @@ class Formatter {
   private millisecond: number
   private days: Array<string>
   private months: Array<string>
-  constructor(date: Date | string, format: string) {
+  private local: boolean
+  constructor(date: Date | string, format: string, local = false) {
     if (typeof date === 'string') {
       this.date = new Date(date)
     } else {
       this.date = date
     }
     this.formatString = format
-    this.year = this.date.getUTCFullYear()
-    this.month = this.date.getUTCMonth()
-    this.day = this.date.getUTCDate()
-    this.hour = this.date.getUTCHours()
-    this.minute = this.date.getUTCMinutes()
-    this.second = this.date.getSeconds()
-    this.millisecond = this.date.getMilliseconds()
+    this.local = local
+    if (local) {
+      this.year = this.date.getFullYear()
+      this.month = this.date.getMonth()
+      this.day = this.date.getDate()
+      this.hour = this.date.getHours()
+      this.minute = this.date.getMinutes()
+      this.second = this.date.getSeconds()
+      this.millisecond = this.date.getMilliseconds()
+    } else {
+      this.year = this.date.getUTCFullYear()
+      this.month = this.date.getUTCMonth()
+      this.day = this.date.getUTCDate()
+      this.hour = this.date.getUTCHours()
+      this.minute = this.date.getUTCMinutes()
+      this.second = this.date.getUTCSeconds()
+      this.millisecond = this.date.getUTCMilliseconds()
+    }
     this.days = [
       'Sunday',
       'Monday',
@@ -73,7 +86,7 @@ class Formatter {
   public format(formatString?: string) {
     const formattingTokensRegExp = new RegExp(
       /[yYQqMLwIdDecihHKkmsaA]o|(\w)\1*|''|'(''|[^'])+('|$)|./g
-    ) // This RegExp catches symbols escaped by quotes, and also
+    )
     const toFormatString = formatString || this.formatString
     let result = ''
     toFormatString.match(formattingTokensRegExp).forEach((value: string) => {
@@ -83,8 +96,8 @@ class Formatter {
     return result
   }
 
-  static format(date: Date, formatString: string) {
-    const formatter = new Formatter(date, formatString)
+  static format(date: Date, formatString: string, local = false) {
+    const formatter = new Formatter(date, formatString, local)
     return formatter.format()
   }
 
@@ -114,6 +127,11 @@ class Formatter {
         return Formatter.prependZero(
           formatter.hour > 12 ? formatter.hour - 12 : formatter.hour
         )
+      case EDateStringPiece.halfHourHalf:
+        return (formatter.hour > 12
+          ? formatter.hour - 12
+          : formatter.hour
+        ).toString()
       case EDateStringPiece.halfMinute:
         return formatter.minute.toString()
       case EDateStringPiece.halfSecond:

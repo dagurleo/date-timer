@@ -33,9 +33,28 @@ const date = new DateTimer()
 // Creates a new date timer object with the current timestamp
 ```
 
+---
+
+### Method chaining
+
+Most methods in the DateTimer class return the DateTimer object so chaining
+methods is available
+
+#### Example
+
+```javascript
+const date = new DateTimer() // 2020-01-01T00:00:00.000Z
+date.addYears(2).addMonths(3).addDays(2) // 2022-04-03T00:00:00.000Z
+```
+
+---
+
 ## Documentation
 
 ### Date Timer Methods
+
+<details>
+  <summary>Click to Open</summary>
 
 #### addYears(years: number): DateTimer
 
@@ -118,6 +137,112 @@ Returns the DateTimer Object.
 const date = new DateTimer() // 2020-01-01T00:00:00.000Z
 date.addSeconds(1) // 2020-01-01T00:00:01.000Z
 ```
+
+#### addMilliseconds(seconds: number): DateTimer
+
+Adds milliseconds to the date.
+Returns the DateTimer Object.
+
+```javascript
+const date = new DateTimer() // 2020-01-01T00:00:00.000Z
+date.addMilliseconds(1) // 2020-01-01T00:00:00.001Z
+```
+
+---
+
+#### subYears(years: number): DateTimer
+
+Subtracts years from the date.
+Returns the DateTimer Object.
+
+```javascript
+const date = new DateTimer() // 2020-01-01
+date.subYears(1) // 2019-01-01
+```
+
+---
+
+#### subMonths(months: number): DateTimer
+
+Subtracts months from the date.
+Returns the DateTimer Object.
+
+```javascript
+const date = new DateTimer() // 2020-01-01
+date.subMonths(1) // 2019-12-01
+```
+
+---
+
+#### subWeeks(weeks: number): DateTimer
+
+Subtracts weeks from the date.
+Returns the DateTimer Object.
+
+```javascript
+const date = new DateTimer() // 2020-01-01
+date.subWeeks(1) // 2019-12-25
+```
+
+---
+
+#### subDays(days: number): DateTimer
+
+Subtracts days from the date.
+Returns the DateTimer Object.
+
+```javascript
+const date = new DateTimer() // 2020-01-01
+date.subDays(1) // 2019-12-31
+```
+
+---
+
+#### subHours(hours: number): DateTimer
+
+Subtracts hours from the date.
+Returns the DateTimer Object.
+
+```javascript
+const date = new DateTimer() // 2020-01-01T00:00:00.000Z
+date.subHours(1) // 2019-12-31T23:00:00.000Z
+```
+
+---
+
+#### subMinutes(minutes: number): DateTimer
+
+Subtracts minutes from the date.
+Returns the DateTimer Object.
+
+```javascript
+const date = new DateTimer() // 2020-01-01T00:00:00.000Z
+date.subMinutes(1) // 2019-12-31T23:59:00.000Z
+```
+
+---
+
+#### subSeconds(seconds: number): DateTimer
+
+Subtracts seconds from the date.
+Returns the DateTimer Object.
+
+```javascript
+const date = new DateTimer() // 2020-01-01T00:00:00.000Z
+date.subSeconds(1) // 2019-12-31T23:59:59.000Z
+```
+
+#### subMilliseconds(seconds: number): DateTimer
+
+Subtracts milliseconds from the date.
+Returns the DateTimer Object.
+
+```javascript
+const date = new DateTimer() // 2020-01-01T00:00:00.000Z
+date.subMilliseconds(1) // 2019-12-31T23:59:59.999Z
+```
+
+</details>
 
 ## Roadmap
 

@@ -1,61 +1,66 @@
 import Formatter from './formatter'
-class Timer {
+class DateTimer {
   private result: Date
-  constructor(options?: ITimerOptions | number | string | Date) {
+  constructor(options?: IDateTimerOptions | number | string | Date) {
     if (options) {
-      if (typeof options === 'number') {
-        this.result = new Date(options)
-      } else if (typeof options === 'string') {
-      } else if (options instanceof Date) {
-        this.result = options
-      } else {
-        checkTypes(options)
-        const date = new Date()
-        if (options) {
-          if (options.years !== null) {
-            date.setUTCFullYear(options.years)
+      try {
+        if (typeof options === 'number') {
+          this.result = new Date(options)
+        } else if (typeof options === 'string') {
+          this.result = new Date(options)
+        } else if (options instanceof Date) {
+          this.result = options
+        } else {
+          checkTypes(options)
+          const date = new Date()
+          if (options) {
+            if (options.years !== null) {
+              date.setUTCFullYear(options.years)
+            }
+            if (options.months !== null) {
+              date.setUTCMonth(options.months)
+            }
+            if (options.days !== null) {
+              date.setUTCDate(options.days)
+            }
+            if (options.hours !== null) {
+              date.setUTCHours(options.hours)
+            }
+            if (options.minutes !== null) {
+              date.setUTCMinutes(options.minutes)
+            }
+            if (options.seconds !== null) {
+              date.setUTCSeconds(options.seconds)
+            }
+            if (options.milliseconds !== null) {
+              date.setUTCMilliseconds(options.milliseconds)
+            }
           }
-          if (options.months !== null) {
-            date.setUTCMonth(options.months)
-          }
-          if (options.days !== null) {
-            date.setUTCDate(options.days)
-          }
-          if (options.hours !== null) {
-            date.setUTCHours(options.hours)
-          }
-          if (options.minutes !== null) {
-            date.setUTCMinutes(options.minutes)
-          }
-          if (options.seconds !== null) {
-            date.setUTCSeconds(options.seconds)
-          }
-          if (options.milliseconds !== null) {
-            date.setUTCMilliseconds(options.milliseconds)
-          }
-        }
 
-        this.result = date
+          this.result = date
+        }
+      } catch (error) {
+        throw new Error('Provided options were not a valid date.')
       }
     } else {
       this.result = new Date()
     }
   }
 
-  public static static(options?: ITimerOptions): number {
-    return new Timer(options).getTime()
+  public static static(options?: IDateTimerOptions): number {
+    return new DateTimer(options).getTime()
   }
 
-  public static create(options?: ITimerOptions): Timer {
+  public static create(options?: IDateTimerOptions): DateTimer {
     if (options) {
       checkTypes(options)
     }
-    return new Timer(options)
+    return new DateTimer(options)
   }
 
-  // Add time values to current timer
+  // Add time values to current DateTimer
 
-  public add(type: string, num: number): Timer {
+  public add(type: string, num: number): DateTimer {
     switch (type) {
       case EAddType.years:
         return this.addYears(num)
@@ -78,7 +83,8 @@ class Timer {
     }
   }
 
-  public addYears(years: number): Timer {
+  /**  Adds years to the date */
+  public addYears(years: number): DateTimer {
     years = ensureNumber(years)
     if (years) {
       const desiredYear = this.result.getFullYear() + years
@@ -86,8 +92,8 @@ class Timer {
     }
     return this
   }
-
-  public addMonths(months: number): Timer {
+  /**  Adds months to the date */
+  public addMonths(months: number): DateTimer {
     months = ensureNumber(months)
     if (months) {
       const result = new Date(this.result.toISOString())
@@ -102,7 +108,8 @@ class Timer {
     return this
   }
 
-  public addWeeks(weeks: number): Timer {
+  /**  Adds weeks to the date */
+  public addWeeks(weeks: number): DateTimer {
     weeks = ensureNumber(weeks)
     if (weeks) {
       const desiredDay = this.result.getUTCDate() + 7 * weeks
@@ -111,7 +118,8 @@ class Timer {
     return this
   }
 
-  public addDays(days: number): Timer {
+  /**  Adds days to the date */
+  public addDays(days: number): DateTimer {
     if (days) {
       days = ensureNumber(days)
       const desiredDay = this.result.getUTCDate() + days
@@ -120,7 +128,8 @@ class Timer {
     return this
   }
 
-  public addHours(hours: number): Timer {
+  /**  Adds hours to the date */
+  public addHours(hours: number): DateTimer {
     hours = ensureNumber(hours)
     if (hours) {
       const desiredHour = this.result.getUTCHours() + hours
@@ -129,7 +138,8 @@ class Timer {
     return this
   }
 
-  public addMinutes(minutes: number): Timer {
+  /**  Adds minutes to the date */
+  public addMinutes(minutes: number): DateTimer {
     minutes = ensureNumber(minutes)
     if (minutes) {
       const desiredMinutes = this.result.getUTCMinutes() + minutes
@@ -138,7 +148,8 @@ class Timer {
     return this
   }
 
-  public addSeconds(seconds: number): Timer {
+  /**  Adds seconds to the date */
+  public addSeconds(seconds: number): DateTimer {
     seconds = ensureNumber(seconds)
     if (seconds) {
       const desiredSeconds = this.result.getUTCSeconds() + seconds
@@ -147,7 +158,8 @@ class Timer {
     return this
   }
 
-  public addMilliseconds(milliseconds: number): Timer {
+  /**  Adds milliseconds to the date */
+  public addMilliseconds(milliseconds: number): DateTimer {
     milliseconds = ensureNumber(milliseconds)
     if (milliseconds) {
       const desiredMilliSeconds =
@@ -157,9 +169,9 @@ class Timer {
     return this
   }
 
-  // Sub time values from current timer
+  // Sub time values from current DateTimer
 
-  public sub(type: string, num: number): Timer {
+  public sub(type: string, num: number): DateTimer {
     switch (type) {
       case EAddType.weeks:
         return this.subWeeks(num)
@@ -177,163 +189,280 @@ class Timer {
         return this
     }
   }
-  public subYears(years: number): Timer {
+
+  /**  Subtracts years from the date */
+  public subYears(years: number): DateTimer {
     return this.addYears(-years)
   }
 
-  public subMonths(months: number): Timer {
+  /**  Subtracts months from the date */
+  public subMonths(months: number): DateTimer {
     return this.addMonths(-months)
   }
 
-  public subWeeks(weeks: number): Timer {
+  /**  Subtracts weeks from the date */
+  public subWeeks(weeks: number): DateTimer {
     return this.addWeeks(-weeks)
   }
 
-  public subDays(days: number): Timer {
+  /**  Subtracts days from the date */
+  public subDays(days: number): DateTimer {
     return this.addDays(-days)
   }
 
-  public subHours(hours: number): Timer {
+  /**  Subtracts hours from the date */
+  public subHours(hours: number): DateTimer {
     return this.addHours(-hours)
   }
 
-  public subMinutes(minutes: number): Timer {
+  /**  Subtracts minutes from the date */
+  public subMinutes(minutes: number): DateTimer {
     return this.addMinutes(-minutes)
   }
 
-  public subSeconds(seconds: number): Timer {
+  /**  Subtracts seconds from the date */
+  public subSeconds(seconds: number): DateTimer {
     return this.addSeconds(-seconds)
   }
 
-  public subMilliseconds(milliseconds: number): Timer {
+  /**  Subtracts milliseconds from the date */
+  public subMilliseconds(milliseconds: number): DateTimer {
     return this.addMilliseconds(-milliseconds)
   }
 
+  /** Sets the year value in the Date object using local time. */
   public setYear(
     year: number,
     month: number = null,
     date: number = null
-  ): Timer {
+  ): DateTimer {
     if (year) {
       this.result.setFullYear(year, month, date)
     }
     return this
   }
 
-  public setMonth(month: number, date: number = null): Timer {
+  /** Sets the month value in the Date object using local time. */
+  public setMonth(month: number, date: number = null): DateTimer {
     if (month) {
       this.result.setMonth(month, date)
     }
     return this
   }
-
-  public setDate(date: number): Timer {
+  /** Sets the day value in the Date object using local time. */
+  public setDate(date: number): DateTimer {
     if (date) {
       this.result.setDate(date)
     }
     return this
   }
 
+  /** Sets the hour value in the Date object using local time. */
   public setHours(
     hours: number,
     min: number = null,
     sec: number = null,
     ms: number = null
-  ): Timer {
+  ): DateTimer {
     if (hours) {
       this.result.setHours(hours, min, sec, ms)
     }
     return this
   }
 
-  public setMinutes(min: number, sec: number = null, ms: number = null): Timer {
+  /** Sets the minute value in the Date object using local time. */
+  public setMinutes(
+    min: number,
+    sec: number = null,
+    ms: number = null
+  ): DateTimer {
     if (min) {
       this.result.setMinutes(min, sec, ms)
     }
     return this
   }
 
-  public setSeconds(sec: number, ms: number = null): Timer {
+  /** Sets the second value in the Date object using local time. */
+  public setSeconds(sec: number, ms: number = null): DateTimer {
     if (sec) {
       this.result.setSeconds(sec, ms)
     }
     return this
   }
 
-  public setMilliSeconds(ms: number = null): Timer {
+  /** Sets the millisecond value in the Date object using local time. */
+  public setMilliSeconds(ms: number = null): DateTimer {
     if (ms) {
       this.result.setMilliseconds(ms)
     }
     return this
   }
 
+  /** Sets the year value in the Date object using Universal Coordinated Time (UTC). */
+  public setUTCYear(
+    year: number,
+    month: number = null,
+    date: number = null
+  ): DateTimer {
+    if (year) {
+      this.result.setUTCFullYear(year, month, date)
+    }
+    return this
+  }
+
+  /** Sets the month value in the Date object using Universal Coordinated Time (UTC). */
+  public setUTCMonth(month: number, date: number = null): DateTimer {
+    if (month) {
+      this.result.setUTCMonth(month, date)
+    }
+    return this
+  }
+
+  /** Sets the day value in the Date object using Universal Coordinated Time (UTC). */
+  public setUTCDate(date: number): DateTimer {
+    if (date) {
+      this.result.setUTCDate(date)
+    }
+    return this
+  }
+
+  /** Sets the hour value in the Date object using Universal Coordinated Time (UTC). */
+  public setUTCHours(
+    hours: number,
+    min: number = null,
+    sec: number = null,
+    ms: number = null
+  ): DateTimer {
+    if (hours) {
+      this.result.setUTCHours(hours, min, sec, ms)
+    }
+    return this
+  }
+
+  /** Sets the minute value in the Date object using Universal Coordinated Time (UTC). */
+  public setUTCMinutes(
+    min: number,
+    sec: number = null,
+    ms: number = null
+  ): DateTimer {
+    if (min) {
+      this.result.setUTCMinutes(min, sec, ms)
+    }
+    return this
+  }
+
+  /** Sets the second value in the Date object using Universal Coordinated Time (UTC). */
+  public setUTCSeconds(sec: number, ms: number = null): DateTimer {
+    if (sec) {
+      this.result.setUTCSeconds(sec, ms)
+    }
+    return this
+  }
+
+  /** Sets the millisecond value in the Date object using Universal Coordinated Time (UTC). */
+  public setUTCMilliSeconds(ms: number = null): DateTimer {
+    if (ms) {
+      this.result.setUTCMilliseconds(ms)
+    }
+    return this
+  }
+
+  /** Gets the day of the week, using local time. */
   public getDay(): number {
     return this.result.getDay()
   }
 
+  /** Gets the hours in a date, using local time. */
   public getHours(): number {
     return this.result.getHours()
   }
 
+  /** Gets the minutes of a Date object, using local time.*/
   public getMinutes(): number {
     return this.result.getMinutes()
   }
 
+  /** Gets the seconds of a Date object, using local time.*/
   public getSeconds(): number {
     return this.result.getSeconds()
   }
 
+  /** Gets the milliseconds of a Date object, using local time.*/
   public getTime(): number {
     return this.result.getTime()
   }
 
+  /** Gets the day-of-the-month, using local time.*/
   public getDate(): number {
     return this.result.getDate()
   }
 
+  /** Gets the day of the week using Universal Coordinated Time (UTC).*/
   public getUTCDay(): number {
     return this.result.getUTCDay()
   }
 
+  /** Gets the hours value in a Date object using Universal Coordinated Time (UTC). */
   public getUTCHours(): number {
     return this.result.getUTCHours()
   }
 
+  /** Gets the minutes value in a Date object using Universal Coordinated Time (UTC). */
   public getUTCMinutes(): number {
     return this.result.getUTCMinutes()
   }
 
+  /** Gets the seconds value in a Date object using Universal Coordinated Time (UTC). */
   public getUTCSeconds(): number {
     return this.result.getUTCSeconds()
   }
 
+  /** Gets the day-of-the-month, using Universal Coordinated Time (UTC).*/
   public getUTCDate(): number {
     return this.result.getUTCDate()
   }
 
+  /** Returns a date as a string value in ISO format. */
   public getISOString(): string {
     return this.result.toISOString()
   }
 
+  /** Returns a date converted to a string using Universal Coordinated Time (UTC). */
   public getUTCString(): string {
     return this.result.toUTCString()
   }
 
+  /** Returns the Javascript date object. */
   public getJsDate(): Date {
     return this.result
   }
 
+  /** Formats and returns the UTC date string.
+   * Use formatLocal(formatString: string) for a local time string
+   * See docuentation for format values */
   public format(formatString: string) {
     if (formatString) {
       return Formatter.format(this.result, formatString)
     }
   }
 
-  public daysBetween(date: Date | Timer | string | number): number {
+  /** Formats and returns the local date string. See docuentation for format values */
+  public formatLocal(formatString: string) {
+    if (formatString) {
+      return Formatter.format(
+        new Date(this.result.toLocaleString()),
+        formatString,
+        true
+      )
+    }
+  }
+
+  /** Returns how many whole days are between the 2 dates. */
+  public daysBetween(date: Date | DateTimer | string | number): number {
     let compareDate: Date
     if (date instanceof Date) {
       compareDate = date
-    } else if (date instanceof Timer) {
+    } else if (date instanceof DateTimer) {
       compareDate = date.getJsDate()
     } else if (typeof date === 'string' || typeof date === 'number') {
       compareDate = new Date(date)
@@ -346,14 +475,15 @@ class Timer {
     return result > 0 ? Math.floor(result) : Math.ceil(result)
   }
 
-  public clone(): Timer {
-    return new Timer(this.getJsDate())
+  /** Returns a clone DateTimer */
+  public clone(): DateTimer {
+    return new DateTimer(this.getJsDate())
   }
 }
 
-export default Timer
+export default DateTimer
 
-const checkTypes = (options: ITimerOptions | number): boolean => {
+const checkTypes = (options: IDateTimerOptions | number): boolean => {
   if (typeof options === 'number') {
     return true
   } else {
@@ -398,7 +528,7 @@ const getDaysInMonth = (date: Date) => {
 
   return lastDayOfMonth.getUTCDate()
 }
-interface ITimerOptions {
+interface IDateTimerOptions {
   years?: number
   months?: number
   days?: number

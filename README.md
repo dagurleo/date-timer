@@ -1,6 +1,7 @@
 # Date Timer
 
 [![](https://img.shields.io/npm/dm/date-timer?style=flat-square)](https://www.npmjs.com/package/date-timer)
+[![](https://img.shields.io/npm/v/date-timer?style=flat-square)](https://www.npmjs.com/package/date-timer)
 [![](https://data.jsdelivr.com/v1/package/npm/date-timer/badge)](https://www.jsdelivr.com/package/npm/date-timer)
 [![](https://img.shields.io/npm/l/date-timer?style=flat-square)](https://choosealicense.com/licenses/mit/)
 

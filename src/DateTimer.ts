@@ -1,6 +1,7 @@
 import Formatter from './formatter'
 class DateTimer {
   private result: Date
+  private onChangeFunction?: (timer?: DateTimer) => void
   constructor(options?: IDateTimerOptions | number | string | Date) {
     if (options) {
       try {
@@ -129,12 +130,14 @@ class DateTimer {
   }
 
   /**  Adds hours to the date */
-  public addHours(hours: number): DateTimer {
+  public addHours(hours: number, cb?: (timer?: DateTimer) => void): DateTimer {
     hours = ensureNumber(hours)
     if (hours) {
       const desiredHour = this.result.getUTCHours() + hours
       this.result.setUTCHours(desiredHour)
     }
+    cb?.()
+    this.runOnChange()
     return this
   }
 
@@ -417,6 +420,11 @@ class DateTimer {
     return this.result.getUTCSeconds()
   }
 
+  /** Gets the milli seconds value in a Date object using Universal Coordinated Time (UTC). */
+  public getUTCMilliseconds(): number {
+    return this.result.getUTCMilliseconds()
+  }
+
   /** Gets the day-of-the-month, using Universal Coordinated Time (UTC).*/
   public getUTCDate(): number {
     return this.result.getUTCDate()
@@ -475,9 +483,33 @@ class DateTimer {
     return result > 0 ? Math.floor(result) : Math.ceil(result)
   }
 
+  /** Returns true if the current date result is in the future */
+  public isFuture(): boolean {
+    return new Date().getTime() < this.result.getTime()
+  }
+
+  /** Returns true if the current date result is in the past */
+  public isPast(): boolean {
+    return new Date().getTime() > this.result.getTime()
+  }
+
   /** Returns a clone DateTimer */
   public clone(): DateTimer {
     return new DateTimer(this.getJsDate())
+  }
+
+  /** A function that is run whenever a time value is changed.
+   * NOTE: This function is run before the change function returns */
+  public onChange(func: (timer?: DateTimer) => void): void {
+    if (func) {
+      this.onChangeFunction = func
+    }
+  }
+
+  private runOnChange(): void {
+    if (this.onChangeFunction) {
+      this.onChangeFunction(this)
+    }
   }
 }
 

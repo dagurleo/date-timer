@@ -2,7 +2,7 @@
   "name": "date-timer",
   "version": "0.0.8",
   "description": "Simple date-time package",
-  "main": "lib/DateTimer.js",
+  "main": "index.js",
   "types": "./lib/DateTimer.d.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpileOnly test.ts -p tsconfig.json",

@@ -1,2 +1,2 @@
-const Timer = require('./lib/timer').default
+const Timer = require('./lib/DateTimer').default
 module.exports = Timer

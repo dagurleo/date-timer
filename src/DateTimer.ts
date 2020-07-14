@@ -142,12 +142,17 @@ class DateTimer {
   }
 
   /**  Adds minutes to the date */
-  public addMinutes(minutes: number): DateTimer {
+  public addMinutes(
+    minutes: number,
+    cb?: (timer?: DateTimer) => void
+  ): DateTimer {
     minutes = ensureNumber(minutes)
     if (minutes) {
       const desiredMinutes = this.result.getUTCMinutes() + minutes
       this.result.setUTCMinutes(desiredMinutes)
     }
+    cb?.()
+    this.runOnChange()
     return this
   }
 
